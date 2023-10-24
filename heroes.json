@@ -1,0 +1,75 @@
+{
+  "heroes": [
+    {
+      "id": "bbd04c1f-cc15-40df-bc22-b6d59cf4a7f6",
+      "name": "Степан",
+      "description": "Крушить",
+      "element": "fire"
+    },
+    {
+      "id": "E6jd_BH",
+      "name": "adsf",
+      "description": "dsaf",
+      "element": "water"
+    },
+    {
+      "id": "50da83be-e4cc-4375-b66a-f117820b7264",
+      "name": "sadf",
+      "description": "sadf",
+      "element": "wind"
+    },
+    {
+      "id": "07bb5401-5b23-41c7-8569-482d5d5bbf0c",
+      "name": "asdf",
+      "description": "asdf",
+      "element": "earth"
+    }
+  ],
+  "filters": [
+    {
+      "classNames": "btn btn-outline-dark",
+      "text": [
+        "Все",
+        "Я владею элементом..."
+      ],
+      "id": "1",
+      "element": "all"
+    },
+    {
+      "classNames": "btn btn-danger",
+      "text": [
+        "Огонь",
+        "Огонь"
+      ],
+      "id": "2",
+      "element": "fire"
+    },
+    {
+      "classNames": "btn btn-primary",
+      "text": [
+        "Вода",
+        "Вода"
+      ],
+      "id": "3",
+      "element": "water"
+    },
+    {
+      "classNames": "btn btn-success",
+      "text": [
+        "Ветер",
+        "Ветер"
+      ],
+      "id": "4",
+      "element": "wind"
+    },
+    {
+      "classNames": "btn btn-secondary",
+      "text": [
+        "Земля",
+        "Земля"
+      ],
+      "id": "5",
+      "element": "earth"
+    }
+  ]
+}
