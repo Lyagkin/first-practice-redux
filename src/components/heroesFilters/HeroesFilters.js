@@ -1,7 +1,7 @@
-import { useHttp } from "../../hooks/http.hook";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import { filtersFetching, filtersFetched, filtersFetchingError, heroesFilters } from "../../actions";
+import { heroesFilters, fetchFilters, selectAll } from "./filtersSlice";
+import store from "../../store";
 
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
@@ -11,15 +11,13 @@ import { filtersFetching, filtersFetched, filtersFetchingError, heroesFilters } 
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-  const { filters, filtersLoadingStatus } = useSelector(({ filters }) => filters);
+  const { filtersLoadingStatus } = useSelector(({ filters }) => filters);
   const dispatch = useDispatch();
-  const { request } = useHttp();
+
+  console.log();
 
   useEffect(() => {
-    dispatch(filtersFetching());
-    request("http://localhost:3004/filters")
-      .then((data) => dispatch(filtersFetched(data)))
-      .catch(() => dispatch(filtersFetchingError()));
+    dispatch(fetchFilters());
 
     // eslint-disable-next-line
   }, []);
@@ -50,6 +48,8 @@ const HeroesFilters = () => {
         </button>
       );
     });
+
+  const filters = selectAll(store.getState());
 
   const elements = buttons(filters);
 

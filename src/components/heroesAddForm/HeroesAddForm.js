@@ -1,12 +1,11 @@
 import { v4 as generatorId } from "uuid";
 import { useHttp } from "../../hooks/http.hook";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useFormik } from "formik";
+import { heroCreating } from "../../components/heroesList/heroesSlice";
+import { selectAll } from "../heroesFilters/filtersSlice";
 
-import { filtersFetching, filtersFetched, filtersFetchingError, heroCreate } from "../../actions";
-import { useEffect } from "react";
-
+import store from "../../store";
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -18,18 +17,9 @@ import { useEffect } from "react";
 // данных из фильтров
 
 const HeroesAddForm = () => {
-  const { filters, filtersLoadingStatus } = useSelector(({ filters }) => filters);
+  const { filtersLoadingStatus } = useSelector(({ filters }) => filters);
   const dispatch = useDispatch();
   const { request } = useHttp();
-
-  useEffect(() => {
-    dispatch(filtersFetching());
-    request("http://localhost:3004/filters")
-      .then((data) => dispatch(filtersFetched(data)))
-      .catch(() => dispatch(filtersFetchingError()));
-
-    // eslint-disable-next-line
-  }, []);
 
   const validate = (values) => {
     const errors = {};
@@ -64,7 +54,7 @@ const HeroesAddForm = () => {
       const hero = { ...values, id: generatorId() };
 
       request(`http://localhost:3004/heroes`, "POST", `${JSON.stringify(hero)}`)
-        .then(dispatch(heroCreate(hero)))
+        .then(dispatch(heroCreating(hero)))
         .catch((error) => console.log(error));
 
       resetForm({
@@ -78,6 +68,7 @@ const HeroesAddForm = () => {
 
   const options = (arr) =>
     arr.map(({ text, id, element }) => {
+      // eslint-disable-next-line
       if (element === "all") return;
 
       return (
@@ -86,6 +77,8 @@ const HeroesAddForm = () => {
         </option>
       );
     });
+
+  const filters = selectAll(store.getState());
 
   const elements = options(filters);
 
